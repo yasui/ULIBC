@@ -1,0 +1,11 @@
+OSSPEC := hwloc
+CFLAGS += -O2 -fopenmp -Wall -Wextra -std=c99 -D_GNU_SOURCE
+LDLIBS += -fopenmp
+HWLOC_CONFIG = --prefix=$(PREFIX) --disable-pci --disable-cairo --disable-libxml2 --disable-libnuma
+ # --enable-shared=no --enable-static=yes
+
+### Local variables:
+### mode: makefile-bsdmake
+### coding: utf-8-unix
+### indent-tabs-mode: nil
+### End:

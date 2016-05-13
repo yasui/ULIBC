@@ -1,0 +1,35 @@
+dummy_numa_malloc.o: src/dummy_numa_malloc.c include/ulibc.h src/common.h \
+ include/omp_helpers.h
+dummy_numa_threads.o: src/dummy_numa_threads.c include/ulibc.h \
+ src/common.h include/omp_helpers.h
+dummy_online_topology.o: src/dummy_online_topology.c include/ulibc.h \
+ src/common.h include/omp_helpers.h
+dummy_topology.o: src/dummy_topology.c include/ulibc.h src/common.h \
+ include/omp_helpers.h
+hwloc_numa_malloc.o: src/hwloc_numa_malloc.c include/ulibc.h src/common.h \
+ include/omp_helpers.h
+hwloc_numa_mapping.o: src/hwloc_numa_mapping.c
+hwloc_numa_threads.o: src/hwloc_numa_threads.c include/ulibc.h \
+ src/common.h include/omp_helpers.h
+hwloc_online_topology.o: src/hwloc_online_topology.c include/ulibc.h \
+ src/common.h include/omp_helpers.h
+hwloc_topology.o: src/hwloc_topology.c include/ulibc.h src/common.h \
+ include/omp_helpers.h
+init.o: src/init.c include/ulibc.h src/common.h include/omp_helpers.h
+linux_numa_malloc.o: src/linux_numa_malloc.c include/ulibc.h src/common.h \
+ include/omp_helpers.h
+linux_numa_threads.o: src/linux_numa_threads.c include/ulibc.h \
+ src/common.h include/omp_helpers.h
+linux_online_topology.o: src/linux_online_topology.c include/ulibc.h \
+ src/common.h include/omp_helpers.h
+linux_topology.o: src/linux_topology.c include/ulibc.h src/common.h \
+ include/omp_helpers.h
+numa_barrier.o: src/numa_barrier.c include/ulibc.h src/common.h \
+ include/omp_helpers.h
+numa_barrier_opt.o: src/numa_barrier_opt.c include/ulibc.h src/common.h \
+ include/omp_helpers.h
+numa_loops.o: src/numa_loops.c include/ulibc.h src/common.h \
+ include/omp_helpers.h
+numa_mapping.o: src/numa_mapping.c include/ulibc.h src/common.h \
+ include/omp_helpers.h
+tools.o: src/tools.c include/ulibc.h src/common.h include/omp_helpers.h

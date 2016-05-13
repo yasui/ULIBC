@@ -1,0 +1,9 @@
+OSSPEC := dummy
+CFLAGS += -O2 -fopenmp -Wall -Wextra -std=c99 -D_GNU_SOURCE
+LDLIBS += -fopenmp
+
+### Local variables:
+### mode: makefile-bsdmake
+### coding: utf-8-unix
+### indent-tabs-mode: nil
+### End:

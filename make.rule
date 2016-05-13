@@ -1,0 +1,98 @@
+## ----------------------------------------
+## Parameters
+## ----------------------------------------
+USE_MALLOC          = no
+USE_MMAP            = no
+USE_PTHREAD_BARRIER = yes
+
+## ----------------------------------------
+## Directories
+## ----------------------------------------
+PREFIX := $(HOME)/local
+SRCDIR = src
+OBJDIR = obj
+INCDIR = include
+LIBDIR = lib
+TSTDIR = test
+
+## ----------------------------------------
+## ULIBC name
+## ----------------------------------------
+ULIBC   = -lulibc
+LIBNAME = $(LIBDIR)/libulibc.a
+SOLIBNAME = $(LIBDIR)/libulibc.so
+LIBINC  = $(INCDIR)/$(wildcard *)
+
+## ----------------------------------------
+## CC flags
+## ----------------------------------------
+CPPFLAGS  = $(addprefix -I, $(SRCDIR) $(INCDIR))
+LDFLAGS   = $(addprefix -L, $(SRCDIR) $(INCDIR))
+LDLIBS   := $(ULIBC) -lm
+CC       := gcc
+CFLAGS   := -g3 -fPIC
+SOFLAGS  := -shared -Wl,-no-as-needed
+MKDIR    := mkdir -p
+CP       := cp -rf
+RM       := rm -rf
+AR       := ar -rcus
+RANLIB   := ranlib
+
+## ----------------------------------------
+## OS-specific settings
+## ----------------------------------------
+OS = $(shell uname -s)
+ifeq ($(OS), SunOS)
+include make_rules/make.rule.solaris
+else ifeq ($(OS), AIX)
+include make_rules/make.rule.aix
+else ifeq ($(OS), Linux)
+include make_rules/make.rule.gcc
+else ifeq ($(OS), Hwloc)
+include make_rules/make.rule.gcc.hwloc
+else ifeq ($(OS), Darwin)
+include make_rules/make.rule.dummy
+else
+include make_rules/make.rule.dummy
+endif
+
+ifeq ($(shell uname -s), Darwin)
+SOFLAGS  = -shared -install_name @rpath/libulibc.so
+SOLDLIBS += -fopenmp
+endif
+
+## ----------------------------------------
+## Hwloc (Portable Hardware Locality)
+## ----------------------------------------
+ifeq ($(OS), Hwloc)
+CFLAGS   += -DUSE_HWLOC
+LDLIBS   += -lhwloc
+CPPFLAGS += $(addprefix -I, $(PREFIX)/include)
+LDFLAGS  += $(addprefix -L, $(PREFIX)/lib)
+SOLDLIBS += -lhwloc
+endif
+
+## use self-built hwloc
+ifeq ($(HWLOC_BUILD), yes)
+BUILD_OPT := hwloc
+HWLOC_URL := https://www.open-mpi.org/software/hwloc/v1.11/downloads/hwloc-1.11.2.tar.gz
+HWLOC_TGZ := $(shell basename $(HWLOC_URL))
+HWLOC_TAR := $(shell basename $(HWLOC_URL) .gz)
+HWLOC_DIR := $(shell basename $(HWLOC_URL) .tar.gz)
+endif
+
+## ----------------------------------------
+## ULIBC settings
+## ----------------------------------------
+ifeq ($(USE_MALLOC), yes)
+CFLAGS += -DUSE_MALLOC
+endif
+ifeq ($(USE_LINUX_MMAP_MEMORY), yes)
+CFLAGS += -DUSE_LINUX_MMAP_MEMORY
+endif
+
+### Local variables:
+### mode: makefile-bsdmake
+### coding: utf-8-unix
+### indent-tabs-mode: nil
+### End:

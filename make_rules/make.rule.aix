@@ -1,0 +1,10 @@
+OSSPEC := hwloc
+CFLAGS += -qsmp=omp
+LDLIBS += -lhwloc -qsmp=omp
+HWLOC_CONFIG = --prefix=$(PREFIX) --enable-shared=no --enable-static=yes --disable-pci --disable-cairo --disable-libxml2
+
+### Local variables:
+### mode: makefile-bsdmake
+### coding: utf-8-unix
+### indent-tabs-mode: nil
+### End:
