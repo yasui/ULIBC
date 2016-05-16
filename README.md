@@ -1,4 +1,4 @@
-# ULIBC users manual
+# ULIBC
 
 
 ## Overview
