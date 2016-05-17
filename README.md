@@ -3,7 +3,7 @@
 
 ## Overview
 
-ULIBC is a callable library for CPU and Memory affinity to applying a thread-parallel implementation to NUMA-aware. This library affects the scalability and performance on NUMA system, such as Intel Xeon, AMD Opteron, Oracle SPARC, IBM Power, and SGI UV series.
+ULIBC is a callable library for CPU and Memory affinity to applying NUMA-aware to a thread-parallel implementation. This library affects the scalability and performance on NUMA system, such as Intel Xeon, AMD Opteron, Oracle SPARC, IBM Power, and SGI UV series.
 
 ULIBC provides some APIs to obtaining hardware topology and managing the position of each thread and data using "MPI rank"-like simple indices, starting at zero; the CPU socket index, physical-core index in each CPU socket, or thread index in each physical-core.
 
