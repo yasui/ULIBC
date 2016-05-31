@@ -38,12 +38,13 @@ NUMA core index | NUMA local cores    | 0, 1, 2, ..., 15
 
 #### CPU affinity
 
-User can settle the affinity by `ULIBC_AFFINITY` environment as `ULIBC_AFFINITY`=_mapping_:_level_.
-ULIBC supports _mapping_ from two processor mappings { `compact`, `scatter` } and _level_ from three binding levels { `fine`, `thread`, `core`, `socket` }.
+User can settle the affinity by `ULIBC_AFFINITY` environment as `ULIBC_AFFINITY`=_mapping_:_binding_.
+ULIBC supports _mapping_ from two processor mappings { `compact`, `scatter`, `external` } and _binding_ from three binding levels { `fine`, `thread`, `core`, `socket` }.
 
 * Two processor mappings
     + `compact` ... Specifying compact assigns threads in a position close to each other. However, it avoids assigning threads on a same physical core as possible as, when a system enables the hyper-threading.
     + `scatter` ... Specifying scatter distributes the threads as evenly as possible across the online (available) processors on the entire system.
+    + `external` ... Specifying external do nothing for external affinity setting
 * Three binding levels
     + `fine` (`thread`) ... Each thread binds into a logical processor.
     + `core` ... Each thread binds into online (available) logical processors on a same physical core.
@@ -63,7 +64,7 @@ Others   | not exist     | --          | supported   | recommended
 
 #### Minimal code
 
-Here is minimal code using ULIBC. At first, the `ULIBC_init()` function initializes ULIBC data structure, in which detects hardware topology runtime and make affinity using `ULIBC_bind_thread_explicit()` at OpenMP region. Each thread obtains a placement using `ULIBC_get_numainfo()`.
+Here is minimal code using ULIBC. At first, the `ULIBC_init()` function initializes the ULIBC data structure, in which ULIBC detects hardware topology runtime. Each thread is pinned on a processing element via `ULIBC_bind_thread_explicit()` at OpenMP region, and obtains a placement using `ULIBC_get_numainfo()`.
 
 ```
 #include <stdio.h>
@@ -74,14 +75,17 @@ int main(void) {
   /* initialize ULIBC variables */
   ULIBC_init();
 
-  /* OepnMP region with default ULIBC affinity */
+  /* OepnMP region with ULIBC affinity */
   _Pragma("omp parallel") {
     /* thread index */
     const int tid = ULIBC_get_thread_num();
+    
+    /* thread binding */
+    ULIBC_bind_thread_explicit(tid);
 
     /* current NUMA placement */
     const struct numainfo_t loc = ULIBC_get_numainfo( tid );
-    printf("%d thread is running on NUMA-node %d Node-core %d\n",
+    printf("%d thread is running on NUMA-node %d NUMA-core %d\n",
            loc.id, loc.node, loc.core);
 
     /* do something */
@@ -159,8 +163,8 @@ $ make OS=Hwloc HWLOC_BUILD=yes
 * `ULBIC_AVOID_HTCORE=BOOL`
     + 0: do nothing (default)
     + 1: Avoids assigning threads to same physical cores as possible as.
-* `ULIBC_AFFINITY=MAPPING:LEVEL`
-    + Specifies the `MAPPING` to { `compact`, `scatter` } and the `LEVEL` to { `fine`, `thread`, `core`, `socket` }.
+* `ULIBC_AFFINITY=MAPPING:BINDING`
+    + Specifies the `MAPPING` to { `compact`, `scatter`, `external` } and the `BINDING` to { `fine`, `thread`, `core`, `socket` }.
 * `ULIBC_USE_SCHED_AFFINITY=BOOL`  
     + 0: do nothing (default)
     + 1: Uses external affinity (ULIBC does not constructs an affinity setting)
