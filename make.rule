@@ -87,8 +87,8 @@ endif
 ifeq ($(USE_MALLOC), yes)
 CFLAGS += -DUSE_MALLOC
 endif
-ifeq ($(USE_LINUX_MMAP_MEMORY), yes)
-CFLAGS += -DUSE_LINUX_MMAP_MEMORY
+ifeq ($(USE_MMAP), yes)
+CFLAGS += -DUSE_MMAP
 endif
 
 ### Local variables:
