@@ -80,7 +80,7 @@ void *NUMA_malloc(size_t size, const int onnode) {
       MPOL_BIND        = (2),
       MPOL_INTERLEAVE  = (3)
     };
-    mbind(p, size, MPOL_PREFERRED, mask, ULIBC_get_num_nodes(), MPOL_MF_MOVE);
+    mbind(p, size, MPOL_PREFERRED, mask, MAX_NODES, MPOL_MF_MOVE);
   }
   
 #elif defined(USE_MALLOC)

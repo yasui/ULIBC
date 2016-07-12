@@ -270,7 +270,8 @@ In addition to the above, we described ULIBC and its application Graph500 benchm
 
 + [HPCS15] Y\. Yasui and K. Fujisawa: "Fast and scalable NUMA-based thread parallel breadth-first search", The proceedings of the HPCS 2015 (The 2015 International Conference on High Performance Computing & Simulation), Amsterdam, the Netherlands, ACM, IEEE, IFIP, 2015. [HPCS15](http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=7237065&newsearch=true&queryText=%20Fast%20and%20scalable%20NUMA-based%20thread%20parallel%20breadth-first%20search)
 
-+ [HPGP16] Y\. Yasui and K. Fujisawa: "NUMA-aware scalable graph traversal on SGI UV systems", The proceedings of the HPGP'16 (The 1st High Performance Graph Processing workshop), HPDC 2016 conference, Kyoto, ACM, IEEE, 2016. [HPGP16](http://hpgp.bsc.es/accepted-papers)
++ [HPGP16] Y\. Yasui, K. Fujisawa, E. L. Goh, J. Baron, A. Sugiura, and T. Uchiyama: "NUMA-aware scalable graph traversal on SGI UV systems", The proceedings of the HPGP'16 (The 1st High Performance Graph Processing workshop), HPDC 2016 conference, Kyoto, ACM, IEEE, 2016. [HPGP16](http://hpgp.bsc.es/accepted-papers)
+
 
 
 
