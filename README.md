@@ -1,5 +1,11 @@
 # ULIBC
 
+To get a source code, please go to the following page;
+
+https://bitbucket.org/yuichiro_yasui/ulibc
+
+
+
 
 ## Overview
 
@@ -79,7 +85,7 @@ int main(void) {
   _Pragma("omp parallel") {
     /* thread index */
     const int tid = ULIBC_get_thread_num();
-    
+
     /* thread binding */
     ULIBC_bind_thread_explicit(tid);
 
@@ -160,7 +166,7 @@ $ make OS=Hwloc HWLOC_BUILD=yes
 
 * `ULIBC_ALIGNSIZE=N`
     + Sets the alignment size in bytes to `N`. ULIBC uses this size in a first-touch after the memory allocation.
-* `ULBIC_AVOID_HTCORE=BOOL`
+* `ULIBC_AVOID_HTCORE=BOOL`
     + 0: do nothing (default)
     + 1: Avoids assigning threads to same physical cores as possible as.
 * `ULIBC_AFFINITY=MAPPING:BINDING`
