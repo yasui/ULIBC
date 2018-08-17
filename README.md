@@ -255,7 +255,7 @@ _Pragma("omp parallel") {
   /* NUMA local barrier sync. for ULIBC_clear_numa_loop() */
   ULIBC_node_barrier();
 
-  while ( ULIBC_numa_loop(256, &ls, &le) ) { /* chunk size: 256 */
+  while ( !ULIBC_numa_loop(256, &ls, &le) ) { /* chunk size: 256 */
     for (int64_t i = ls; i < le; ++i)
       vec[i] = (double)i;
   }
